@@ -11,7 +11,7 @@ window.onload = function () {
   }
   // numbers 배열에 1~9까지가 담긴다.
 
-  // 무작의 4자리 수 추출
+  // 무작위 4자리 수 추출
   const answer = [];
 
   for (let i = 0; i < 4; i++) {
@@ -44,6 +44,8 @@ window.onload = function () {
     return true;
   }
 
+  let out = 0;
+
   $form.addEventListener("submit", (event) => {
     event.preventDefault();
     const value = $input.value;
@@ -66,6 +68,7 @@ window.onload = function () {
       logs.appendChild(message);
       return;
     }
+
     // 몇 스트라이크 몇 볼인지 검사
     let strike = 0;
     let ball = 0;
@@ -78,9 +81,19 @@ window.onload = function () {
           ball += 1;
         }
     }
-    logs.append(
-      `${value}: ${strike} 스트라이크 ${ball} 볼`,
-      document.createElement("br")
-    );
+
+    if (strike === 0) {
+      logs.append(`OUT`, document.createElement("br"));
+      out += 1;
+      if (out > 2) {
+        logs.append(`FAILURE`, document.createElement("br"));
+      }
+      console.log(out);
+    } else {
+      logs.append(
+        `${value}: ${strike} 스트라이크 ${ball} 볼`,
+        document.createElement("br")
+      );
+    }
   });
 };
